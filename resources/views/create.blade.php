@@ -1,127 +1,324 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Crear Cuenta - SENA EPP</title>
-<style>
-:root{
-  --green:#39A935; --green-dark:#2d8a2b; --bg: linear-gradient(135deg,#39A935 0%,#2d8a2b 50%,#1f6b1e 100%);
-  --card-bg:#fff; --shadow:0 20px 60px rgba(0,0,0,0.25); font-family:"Segoe UI",Arial,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{display:flex;align-items:center;justify-content:center;background:var(--bg);padding:20px;-webkit-font-smoothing:antialiased}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Crear Cuenta - SENA EPP</title>
+    <style>
+        :root {
+            --green: #39A935;
+            --green-dark: #2d8a2b;
+            --bg: linear-gradient(135deg, #39A935 0%, #2d8a2b 50%, #1f6b1e 100%);
+            --card-bg: #fff;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
 
-/* Container */
-.container{width:100%;max-width:1000px;display:flex;border-radius:28px;overflow:hidden;background:var(--card-bg);box-shadow:var(--shadow);min-height:600px}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
 
-/* Left */
-.illustration-side{flex:1;padding:56px 40px;background:linear-gradient(135deg,#2d8a2b 0%,#39A935 100%);color:white;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.logo{width:100px;height:100px;background:white;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:46px;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
-.logo-text{font-weight:800;font-size:28px;margin-top:18px}
-.logo-sub{opacity:0.9;font-size:14px;margin-top:6px}
+        html,
+        body {
+            height: 100%
+        }
 
-/* Right form */
-.form-side{flex:1;padding:56px 60px;display:flex;flex-direction:column;justify-content:center}
-.form-title{font-size:32px;color:#333;font-weight:700;margin-bottom:6px}
-.form-sub{color:#666;margin-bottom:20px}
-.tabs{display:flex;gap:20px;margin-bottom:28px;border-bottom:2px solid #eee}
-.tab{padding:10px 0;font-weight:700;color:#999;cursor:pointer;text-decoration:none}
-.tab.active{color:var(--green);border-bottom:3px solid var(--green);padding-bottom:7px}
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            padding: 20px;
+            -webkit-font-smoothing: antialiased
+        }
 
-/* Form */
-.form{max-width:520px}
-.form-group{margin-bottom:18px}
-.label{display:block;margin-bottom:8px;font-weight:700;color:#333;font-size:14px}
-.input{width:100%;padding:14px 16px;border-radius:12px;border:2px solid #e6e6e6;font-size:15px;outline:none}
-.input:focus{border-color:var(--green);box-shadow:0 0 0 6px rgba(57,169,53,0.06)}
-.checkbox-row{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.submit{width:100%;padding:14px;border-radius:12px;border:none;background:var(--green);color:white;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(57,169,53,0.22)}
-.divider{display:flex;align-items:center;margin:20px 0;color:#999;font-size:14px}
-.divider::before,.divider::after{content:"";flex:1;height:1px;background:#eee}
-.divider::before{margin-right:12px}.divider::after{margin-left:12px}
-.socials{display:flex;gap:12px}
-.social{flex:1;padding:10px;border-radius:10px;border:1px solid #e6e6e6;background:white;cursor:pointer;font-weight:700}
-.bottom-note{margin-top:16px;font-size:14px;color:#666}
-.bottom-note a{color:var(--green);font-weight:700;text-decoration:none}
-@media(max-width:900px){.container{flex-direction:column}.illustration-side{padding:36px}.form-side{padding:36px}}
-</style>
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            border-radius: 28px;
+            overflow: hidden;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            min-height: 600px
+        }
+
+        /* Left */
+        .illustration-side {
+            flex: 1;
+            padding: 56px 40px;
+            background: linear-gradient(135deg, #2d8a2b 0%, #39A935 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 46px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2)
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 28px;
+            margin-top: 18px
+        }
+
+        .logo-sub {
+            opacity: 0.9;
+            font-size: 14px;
+            margin-top: 6px
+        }
+
+        /* Right form */
+        .form-side {
+            flex: 1;
+            padding: 56px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center
+        }
+
+        .form-title {
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 6px
+        }
+
+        .form-sub {
+            color: #666;
+            margin-bottom: 20px
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 28px;
+            justify-content: center;
+            border-bottom: 2px solid #eee
+            
+        }
+
+        .tab {
+            padding: 10px 0;
+            font-weight: 700;
+            color: #999;
+            cursor: pointer;
+            text-decoration: none
+        }
+
+        .tab.active {
+            color: var(--green);
+            border-bottom: 3px solid var(--green);
+            padding-bottom: 7px
+        }
+
+        /* Form */
+        .form {
+            max-width: 520px
+        }
+
+        .form-group {
+            margin-bottom: 18px
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #333;
+            font-size: 14px
+        }
+
+        .input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 2px solid #e6e6e6;
+            font-size: 15px;
+            outline: none
+        }
+
+        .input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 6px rgba(57, 169, 53, 0.06)
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px
+        }
+
+        .submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: var(--green);
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(57, 169, 53, 0.22)
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee
+        }
+
+        .divider::before {
+            margin-right: 12px
+        }
+
+        .divider::after {
+            margin-left: 12px
+        }
+
+        .socials {
+            display: flex;
+            gap: 12px
+        }
+
+        .social {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #e6e6e6;
+            background: white;
+            cursor: pointer;
+            font-weight: 700
+        }
+
+        .bottom-note {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #666
+        }
+
+        .bottom-note a {
+            color: var(--green);
+            font-weight: 700;
+            text-decoration: none
+        }
+
+        @media(max-width:900px) {
+            .container {
+                flex-direction: column
+            }
+
+            .illustration-side {
+                padding: 36px
+            }
+
+            .form-side {
+                padding: 36px
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <main class="container" aria-label="Crear cuenta SENA EPP">
-    <section class="illustration-side" aria-hidden="true">
-      <div class="logo">🛡️</div>
-      <div class="logo-text">SENA EPP</div>
-      <div class="logo-sub">Sistema de Protección Personal</div>
-    </section>
+    <main class="container" aria-label="Crear cuenta SENA EPP">
+        <section class="illustration-side" aria-hidden="true">
+            <div class="logo">🛡️</div>
+            <div class="logo-text">SENA EPP</div>
+            <div class="logo-sub">Sistema de Protección Personal</div>
+        </section>
 
-    <section class="form-side" aria-label="Formulario crear cuenta">
-      <div>
-        <h1 class="form-title">Crear Cuenta</h1>
-        <p class="form-sub">Regístrate para acceder al sistema</p>
+        <section class="form-side" aria-label="Formulario crear cuenta">
+            <div>
+                <h1 class="form-title">Crear Cuenta</h1>
+                <p class="form-sub">Regístrate para acceder al sistema</p>
 
-        <nav class="tabs" aria-label="Navegación de acceso">
-          <a class="tab" href="login.html">Iniciar Sesión</a>
-          <a class="tab active" href="register.html" aria-current="page">Crear Cuenta</a>
-        </nav>
+                <nav class="tabs" aria-label="Navegación de acceso">
+                    <a class="tab active" href="#" aria-current="page">Crear Cuenta</a>
+                </nav>
 
-        <form class="form" id="registerForm" novalidate>
-          <div class="form-group">
-            <label class="label" for="fullname">Nombre completo</label>
-            <input id="fullname" class="input" type="text" placeholder="Juan Pérez" required>
-          </div>
+                <form class="form" id="registerForm" novalidate>
+                    <div class="form-group">
+                        <label class="label" for="fullname">Nombre completo</label>
+                        <input id="fullname" class="input" type="text" placeholder="Juan Pérez" required>
+                    </div>
 
-          <div class="form-group">
-            <label class="label" for="emailReg">Correo electrónico</label>
-            <input id="emailReg" class="input" type="email" placeholder="tu@email.com" required>
-          </div>
+                    <div class="form-group">
+                        <label class="label" for="emailReg">Correo electrónico</label>
+                        <input id="emailReg" class="input" type="email" placeholder="tu@email.com" required>
+                    </div>
 
-          <div class="form-group">
-            <label class="label" for="pass1">Contraseña</label>
-            <input id="pass1" class="input" type="password" placeholder="••••••••" required>
-          </div>
+                    <div class="form-group">
+                        <label class="label" for="pass1">Contraseña</label>
+                        <input id="pass1" class="input" type="password" placeholder="••••••••" required>
+                    </div>
 
-          <div class="form-group">
-            <label class="label" for="pass2">Confirmar contraseña</label>
-            <input id="pass2" class="input" type="password" placeholder="••••••••" required>
-          </div>
+                    <div class="form-group">
+                        <label class="label" for="pass2">Confirmar contraseña</label>
+                        <input id="pass2" class="input" type="password" placeholder="••••••••" required>
+                    </div>
 
-          <div class="checkbox-row">
-            <input id="terms" type="checkbox" required>
-            <label for="terms">Acepto los términos y condiciones</label>
-          </div>
+                    <div class="checkbox-row">
+                        <input id="terms" type="checkbox" required>
+                        <label for="terms">Acepto los términos y condiciones</label>
+                    </div>
 
-          <button type="submit" class="submit">Crear Cuenta</button>
+                    <button type="submit" class="submit">Crear Cuenta</button>
+            </div>
+            </form>
+            </div>
+        </section>
+    </main>
 
-          <div class="divider">O regístrate con</div>
-
-          <div class="socials" role="group">
-            <button type="button" class="social" onclick="alert('Registro con Google - demo')">📧 Google</button>
-            <button type="button" class="social" onclick="alert('Registro con Microsoft - demo')">💼 Microsoft</button>
-          </div>
-
-          <p class="bottom-note">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-<script>
-// Basic client validation
-document.getElementById('registerForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = document.getElementById('fullname').value.trim();
-  const email = document.getElementById('emailReg').value.trim();
-  const p1 = document.getElementById('pass1').value;
-  const p2 = document.getElementById('pass2').value;
-  const terms = document.getElementById('terms').checked;
-  if(!name || !email || !p1 || !p2){ alert('Por favor completa todos los campos'); return; }
-  if(p1 !== p2){ alert('Las contraseñas no coinciden'); return; }
-  if(!terms){ alert('Debes aceptar los términos y condiciones'); return; }
-  alert('Cuenta creada (demo): ' + email);
-  // Aquí podrías redirigir al login: window.location.href = 'login.html';
-});
-</script>
+    <script>
+        // Basic client validation
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('emailReg').value.trim();
+            const p1 = document.getElementById('pass1').value;
+            const p2 = document.getElementById('pass2').value;
+            const terms = document.getElementById('terms').checked;
+            if (!name || !email || !p1 || !p2) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            if (p1 !== p2) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+            if (!terms) {
+                alert('Debes aceptar los términos y condiciones');
+                return;
+            }
+            alert('Cuenta creada (demo): ' + email);
+            // Aquí podrías redirigir al login: window.location.href = 'login.html';
+        });
+    </script>
 </body>
+
 </html>
