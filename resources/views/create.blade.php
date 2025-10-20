@@ -9,7 +9,7 @@
         :root {
             --green: #39A935;
             --green-dark: #2d8a2b;
-            --bg: linear-gradient(135deg, #39A935 0%, #2d8a2b 50%, #1f6b1e 100%);
+            --bg: linear-gradient(to bottom right, #1F3B4D, #0c0c0c5d);
             --card-bg: #fff;
             --shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
             font-family: "Segoe UI", Arial, sans-serif;
@@ -60,9 +60,8 @@
         }
 
         .logo {
-            width: 100px;
-            height: 100px;
-            background: white;
+            width: 322px;
+            height: 280px;
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -96,12 +95,18 @@
             font-size: 32px;
             color: #333;
             font-weight: 700;
-            margin-bottom: 6px
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: center;
+            
         }
 
         .form-sub {
             color: #666;
-            margin-bottom: 20px
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            
         }
 
         .tabs {
@@ -110,7 +115,6 @@
             margin-bottom: 28px;
             justify-content: center;
             border-bottom: 2px solid #eee
-            
         }
 
         .tab {
@@ -247,14 +251,14 @@
 <body>
     <main class="container" aria-label="Crear cuenta SENA EPP">
         <section class="illustration-side" aria-hidden="true">
-            <div class="logo">🛡️</div>
+            <div class="logo"><img src="/public/img/logoblanco.png" alt=""></div>
             <div class="logo-text">SENA EPP</div>
             <div class="logo-sub">Sistema de Protección Personal</div>
         </section>
 
         <section class="form-side" aria-label="Formulario crear cuenta">
             <div>
-                <h1 class="form-title">Crear Cuenta</h1>
+                <h1 class="form-title">Bienvenido</h1>
                 <p class="form-sub">Regístrate para acceder al sistema</p>
 
                 <nav class="tabs" aria-label="Navegación de acceso">
