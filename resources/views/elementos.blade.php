@@ -10,7 +10,7 @@
             --green: #39A935;
             --green-dark: #2d8a2b;
             --gold: #FFD700;
-            --bg: #f5f5f5;
+            --bg: #ffffffff;
             --card-radius: 20px;
         }
 
@@ -46,7 +46,6 @@
         .logo {
             width: 50px;
             height: 50px;
-            background: var(--green);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -54,6 +53,10 @@
             color: white;
             font-weight: 700;
             font-size: 22px;
+        }
+        .img_logo{
+            height: 65px;
+            width: 70px;
         }
 
         .header-title {
@@ -63,8 +66,7 @@
 
         .user-icon {
             width: 40px;
-            height: 40px;
-            background: var(--green);
+            height: 40px;   
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -117,13 +119,11 @@
 
         .badge {
             display: inline-block;
-            background: rgba(255, 215, 0, 0.12);
-            color: var(--gold);
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: 700;
             font-size: 14px;
-            border: 1px solid rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 1);
             margin-bottom: 12px;
         }
 
@@ -177,10 +177,10 @@
             right: 6px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--gold);
+            background-color: #ffffffff;
             border: none;
-            width: 48px;
-            height: 48px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 18px;
@@ -229,7 +229,7 @@
             background: white;
             border-radius: var(--card-radius);
             overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 6px 40px rgba(0, 0, 0, 0.20);
             transition: transform .35s ease, box-shadow .35s ease;
             cursor: pointer;
             position: relative;
@@ -254,6 +254,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            background-image: url(/public/img/santa-marta.png);
         }
 
         .product-image {
@@ -451,23 +452,23 @@
     <!-- Header -->
     <div class="header">
         <div class="logo-section">
-            <div class="logo">🛡️</div>
+            <div class="logo"><img src="/public/img/logonegro.png" alt="logo" class="img_logo"></div>
             <div class="header-title">Elementos de Protección Personal</div>
         </div>
-        <div class="user-icon">👤</div>
+        <div class="user-icon"><img src="/public/img/Vector (1).svg" alt="icon"></div>
     </div>
 
     <!-- Banner -->
     <div class="banner">
         <div class="banner-content">
             <div class="banner-text">
-                <div class="badge">🛡️ SEGURIDAD LABORAL</div>
+                <div class="badge">SEGURIDAD LABORAL</div>
                 <h1 class="banner-title">Tu Seguridad es<br>Nuestra <span class="highlight">Prioridad</span></h1>
                 <p class="banner-subtitle">Usa siempre tus EPP - Protege tu vida y tu futuro</p>
                 <div class="search-container">
                     <div class="search-box">
                         <input type="text" class="search-input" placeholder="Buscar equipos de protección...">
-                        <button class="search-button">🔍</button>
+                        <button class="search-button"><img src="/public/img/Search.png" alt="buscar"></button>
                     </div>
                 </div>
             </div>
@@ -670,14 +671,7 @@
             <div class="product-card">
                 <div class="product-image-container">
                     <div class="quick-view">👁️</div>
-                    <svg class="product-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración casco 3">
-                        <ellipse cx="100" cy="165" rx="60" ry="10" fill="#ddd" />
-                        <path d="M70 85 Q100 65 130 85 L130 125 Q100 145 70 125 Z" fill="#FFD700" />
-                        <rect x="65" y="80" width="70" height="10" rx="5" fill="#FFC700" />
-                        <circle cx="85" cy="100" r="8" fill="#333" />
-                        <circle cx="115" cy="100" r="8" fill="#333" />
-                        <path d="M75 125 L85 140 L100 130 L115 140 L125 125" fill="none" stroke="#666" stroke-width="3" />
-                    </svg>
+                    <img src="/public/img/santa-marta.png" alt="">
                 </div>
                 <div class="product-info">
                     <h3 class="product-title">Casco de seguridad tipo 2</h3>
