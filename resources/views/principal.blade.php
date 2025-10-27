@@ -54,15 +54,11 @@
   .logo{
     width:50px;
     height:50px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.95);
+    
     display:flex;
     align-items:center;
     justify-content:center;
-    color:var(--green-1);
     font-weight:700;
-    flex-shrink:0;
-    box-shadow: var(--shadow-2);
     position:relative;
   }
   .logo small{
@@ -70,7 +66,6 @@
     font-size:10px;
     line-height:1;
     margin-top:2px;
-    color:var(--green-1);
     font-weight:700;
   }
   .title{
@@ -218,6 +213,10 @@
   .search input{
     border:0; outline:0; font-size:13px; color:#666; width:180px; background:transparent;
   }
+  .img_search{
+    height: 10%;
+    width: 8%;
+  }
 
   /* Cards grid: replicate the two-column cards of SVG */
   .cards {
@@ -312,18 +311,14 @@
     <!-- Header -->
     <header class="header" role="banner" aria-hidden="false">
       <div style="display:flex;align-items:center;gap:12px;">
-        <div class="logo" aria-hidden="true">
-          <div style="font-size:16px;line-height:1">SENA</div>
-          <small style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-weight:700;">EPP</small>
+        <div>
+          <img src="/public/img/logoblanco.png" alt="logo" class="logo">
         </div>
         <div class="title">Portal de Suministros EPP</div>
       </div>
 
       <div class="header-actions" role="group" aria-label="Acciones de cabecera">
-        <button class="login-btn" aria-label="Iniciar sesión">
-          <span class="circle" aria-hidden="true">✓</span>
-          <span>Iniciar Sesión</span>
-        </button>
+        <img src="/public/img/login_blanco.svg" alt="">
       </div>
     </header>
 
@@ -371,7 +366,7 @@
 
           <div class="search">
             <div class="box" role="search" aria-label="Buscar ficha">
-              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#999" d="M9.5 3a6.5 6.5 0 1 1 0 13a6.5 6.5 0 0 1 0-13zm7.7 14.3l3.6 3.6l-1.4 1.4l-3.6-3.6"></path></svg>
+              <img src="/public/img/Search.png" alt="search" class="img_search">
               <input type="text" placeholder="Buscar ficha..." aria-label="Buscar ficha" />
             </div>
           </div>
