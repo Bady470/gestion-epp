@@ -14,16 +14,17 @@ class Usuario extends Authenticatable
     protected $table = 'usuarios';
 
     protected $fillable = [
-        'nombre_completo',   
-        'email',            
-        'password',        
-        'roles_id',   
-        'categorias_id',     // verificar si es area_id o categoria
+        'nombre_completo',
+        'email',
+        'password',
+        'telefono',
+        'roles_id',
+        'area_id',
     ];
 
     protected $hidden = [
         'password',
-        'remember_token'
+        'remember_token',
     ];
 
     // Casts básicos (ajusta según tus columnas)

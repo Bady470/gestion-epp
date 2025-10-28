@@ -1,0 +1,435 @@
+{
+  "info": {
+    "name": "GestionEPP - Full API Tests",
+    "_postman_id": "gestion-epp-full-tests",
+    "description": "Colección de pruebas automática para la API GestionEPP: register, login (Sanctum), y tests CRUD para recursos principales.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1 - Auth & Setup",
+      "item": [
+        {
+          "name": "Register (create test user)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_completo\":\"PM Test User\",\n  \"email\":\"pmtest@example.com\",\n  \"password\":\"secret123\",\n  \"password_confirmation\":\"secret123\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/register", "host": ["{{base_url}}"], "path": ["api","register"] }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Register - status 201 or 200', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "if(res && res.token){",
+                  "  pm.environment.set('token', res.token);",
+                  "}",
+                  "if(res && res.user && res.user.id){",
+                  "  pm.environment.set('usuario_id', res.user.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login (store token)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\":\"pmtest@example.com\",\n  \"password\":\"secret123\"\n}" },
+            "url": { "raw": "{{base_url}}/api/login", "host": ["{{base_url}}"], "path": ["api","login"] }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Login - status 200', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json();",
+                  "const token = r.token || r.plainTextToken || r.data?.token || r.data?.plainTextToken;",
+                  "pm.test('Token present', function(){ pm.expect(token).to.be.a('string'); });",
+                  "pm.environment.set('token', token);",
+                  "if(r.user && r.user.id) pm.environment.set('usuario_id', r.user.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Area",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\"nombre\":\"Area Postman\",\"descripcion\":\"Area creada por pruebas\"}" },
+            "url": { "raw": "{{base_url}}/api/areas", "host": ["{{base_url}}"], "path": ["api","areas"] }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Create Area - 201', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('area_id', r.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Programa",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\"nombre\":\"Programa Postman\",\"categorias_id\":{{area_id}}}" },
+            "url": { "raw": "{{base_url}}/api/programas", "host": ["{{base_url}}"], "path": ["api","programas"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Create Programa - 201', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('programa_id', r.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Ficha",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\"numero\":\"F-001\",\"programas_id\":{{programa_id}}}" },
+            "url": { "raw": "{{base_url}}/api/fichas", "host": ["{{base_url}}"], "path": ["api","fichas"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Create Ficha ok', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('ficha_id', r.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create ElementoPP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Elemento Test\",\"descripcion\":\"Item creado por Postman\",\"cantidad\":10,\"categorias_id\":{{ficha_id}}}"
+            },
+            "url": { "raw": "{{base_url}}/api/elementos_pp", "host": ["{{base_url}}"], "path": ["api","elementos_pp"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Create Elemento - 201', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('elemento_id', r.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Permiso",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\"nombre\":\"permiso_test\",\"descripcion\":\"permiso de prueba\"}" },
+            "url": { "raw": "{{base_url}}/api/permisos", "host": ["{{base_url}}"], "path": ["api","permisos"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Create Permiso ok', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('permiso_id', r.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\"nombre\":\"role_test\"}" },
+            "url": { "raw": "{{base_url}}/api/roles", "host": ["{{base_url}}"], "path": ["api","roles"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Create Role ok', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('role_id', r.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2 - Usuarios",
+      "item": [
+        {
+          "name": "List Usuarios",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/usuarios", "host": ["{{base_url}}"], "path": ["api","usuarios"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('List Usuarios - 200', function(){ pm.expect(pm.response.code).to.equal(200); });",
+                  "const r = pm.response.json();",
+                  "pm.test('List contains data.array or data', function(){ pm.expect(Array.isArray(r.data || r)).to.be.ok; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Usuario (me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/usuarios/{{usuario_id}}", "host": ["{{base_url}}"], "path": ["api","usuarios","{{usuario_id}}"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Get Usuario OK', function(){ pm.expect(pm.response.code).to.equal(200); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('usuario_id', r.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3 - Pedidos",
+      "item": [
+        {
+          "name": "List Pedidos (empty or existing)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/pedidos", "host": ["{{base_url}}"], "path": ["api","pedidos"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Pedidos list 200', function(){ pm.expect(pm.response.code).to.equal(200); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Pedido with items",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarios_id\": {{usuario_id}},\n  \"fichas_id\": {{ficha_id}},\n  \"status\":\"pending\",\n  \"comentario\":\"Pedido por Postman\",\n  \"items\": [ { \"elementos_pp_id\": {{elemento_id}}, \"cantidad\": 2, \"precio_unitario\": 12.5 } ]\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/pedidos", "host": ["{{base_url}}"], "path": ["api","pedidos"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Create Pedido 201', function(){ pm.expect(pm.response.code).to.be.oneOf([200,201]); });",
+                  "const r = pm.response.json(); if(r.id) pm.environment.set('pedido_id', r.id);",
+                  "if(r.elementos && r.elementos.length) pm.environment.set('item_id', r.elementos[0].id || r.elementos[0].elementos_x_pedido_id || r.elementos[0].pivot_id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Pedido",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/pedidos/{{pedido_id}}", "host": ["{{base_url}}"], "path": ["api","pedidos","{{pedido_id}}"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Get Pedido 200', function(){ pm.expect(pm.response.code).to.equal(200); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4 - Elementos x Pedido (pivot)",
+      "item": [
+        {
+          "name": "List Items",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/elementos_x_pedido", "host": ["{{base_url}}"], "path": ["api","elementos_x_pedido"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('List items 200', function(){ pm.expect(pm.response.code).to.equal(200); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5 - Cleanup (delete created resources)",
+      "item": [
+        {
+          "name": "Delete Pedido",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/pedidos/{{pedido_id}}", "host": ["{{base_url}}"], "path": ["api","pedidos","{{pedido_id}}"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Delete pedido 200', function(){ pm.expect(pm.response.code).to.be.oneOf([200,204]); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete ElementoPP",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/elementos_pp/{{elemento_id}}", "host": ["{{base_url}}"], "path": ["api","elementos_pp","{{elemento_id}}"] }
+          }
+        },
+        {
+          "name": "Delete Ficha",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/fichas/{{ficha_id}}", "host": ["{{base_url}}"], "path": ["api","fichas","{{ficha_id}}"] }
+          }
+        },
+        {
+          "name": "Delete Programa",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/programas/{{programa_id}}", "host": ["{{base_url}}"], "path": ["api","programas","{{programa_id}}"] }
+          }
+        },
+        {
+          "name": "Delete Area",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/areas/{{area_id}}", "host": ["{{base_url}}"], "path": ["api","areas","{{area_id}}"] }
+          }
+        },
+        {
+          "name": "Delete Role",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/roles/{{role_id}}", "host": ["{{base_url}}"], "path": ["api","roles","{{role_id}}"] }
+          }
+        },
+        {
+          "name": "Delete Permiso",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }],
+            "url": { "raw": "{{base_url}}/api/permisos/{{permiso_id}}", "host": ["{{base_url}}"], "path": ["api","permisos","{{permiso_id}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}
